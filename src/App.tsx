@@ -1,14 +1,17 @@
-import { useState } from 'react'
 import './App.css'
-import { Layer, Rect, Stage } from 'react-konva'
+import Simulation from './features/Simulation/SimWindow'
+import { Projectile } from './physics/projectile'
+import { Environment } from './physics/environment'
+import './features/Simulation/konva'
 
 function App() {
-
-//TODO: 1) Get canvas implemented. 2) Make sure falling object draws correctly. 3) End sim if object hits ground or at least stop it from moving. 4) Probably make environment just a state variable. 5) fallingObjects array also state variable?
+  const ball = new Projectile("Test", 1, {x: 100, y: 0}, .05);
+  let environment = new Environment(1.2, 9.81, 1);
+  
   return (
-    <>
-      <canvas id="canvas" />
-    </>
+    <div className="App">
+      <Simulation projectiles={[ball]} environment={environment}/>
+    </div>
   )
 }
 
