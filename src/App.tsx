@@ -18,18 +18,41 @@ import SimulationWindow from './features/Simulation/SimulationWindow'
 //   i++;
 // }
 
+export interface Simulation {
+  isPlaying: boolean,
+  projectile: Projectile,
+  environment: Environment
+}
+
+let defaultSimulation: Simulation = {
+  isPlaying: false,
+  projectile: new Projectile(premadeProjectiles[0].name, premadeProjectiles[0].density, premadeProjectiles[0].position, premadeProjectiles[0].radius),
+  environment: new Environment(premadeEnvironments[0].density, premadeEnvironments[0].gravity, premadeEnvironments[0].name)
+
+}
+
 function App() {
-  const [selectedProjectile, setSelectedProjectile] = useState(premadeProjectiles[0]);
-  const [selectedEvironment, setSelectedEnvironment] = useState(premadeEnvironments[0]);
+  // TODO: Current issue is we want to link the preset selections to building a new projectile. As it stands, only the INITIAL state of the simulation is connected
+  // to the selection process. To fix this, we probably need a combined state for all of this or something similar. What a mess.
+  const [simulation, setSimulation] = useState(defaultSimulation);
+
+  const startSimulation = () => setSimulation((prev) => ({...prev, isPlaying: true}));
+  const pauseSimulation = () => setSimulation((prev) => ({...prev, isPlaying: false}));
+  const resetSimulation = () => setSimulation((prev) => ({...prev, isPlaying: false, projectile: new Projectile(selectedProjectile.name, selectedProjectile.density, selectedProjectile.position, selectedProjectile.radius)}));
   
   return (
     <div className="App">
       <div className="settings-window">
-        <ProjectileSelectionWindow premadeProjectiles={premadeProjectiles} setSelectedProjectile={setSelectedProjectile} />
-        <EnvironmentSelectionWindow premadeEnvironments={premadeEnvironments} setSelectedEnvironment={setSelectedEnvironment} />
+        <div className="simulation-buttons">
+          <button onClick={startSimulation}>Play</button>
+          <button onClick={pauseSimulation}>Pause</button>
+          <button onClick={resetSimulation}>Reset</button>
+        </div>
+        <ProjectileSelectionWindow premadeProjectiles={premadeProjectiles} simulation={simulation} setSimulation={setSimulation} />
+        <EnvironmentSelectionWindow premadeEnvironments={premadeEnvironments} setSimulation={setSimulation} />
       </div>
       <div className="simulation-window">
-        <SimulationWindow projectile={selectedProjectile} environment={selectedEvironment} />
+        <SimulationWindow simulation={simulation} setSimulation={setSimulation} initialConditions={selectedProjectile} />
       </div>
       <div className="data-window">
         <span>Data Window</span>

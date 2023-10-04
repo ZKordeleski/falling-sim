@@ -6,17 +6,12 @@ import { updateProjectile } from "../../physics/updatePosition";
 import { Environment, PremadeEnvironment } from "../../physics/environment";
 
 interface SimulationWindowProps {
-    projectile: PremadeProjectile,
-    environment: PremadeEnvironment
+    simulation: {isPlaying: boolean, projectile: Projectile, environment: Environment},
+    setSimulation: (simulation: {isPlaying: boolean, projectile: Projectile, environment: Environment}) => void;
+    initialConditions: PremadeProjectile
 }
 
 function SimulationWindow(props: SimulationWindowProps) {
-  const [simulation, setSimulation] = useState({
-    isPlaying: false,
-    projectile: new Projectile(props.projectile.name, props.projectile.density, props.projectile.position, props.projectile.radius),
-    environment: new Environment(props.environment.density, props.environment.gravity, props.environment.name)
-  });
-
   useEffect(() => {
     let animationFrameID: number;
     let lastUpdateTime: number = performance.now();
@@ -26,42 +21,29 @@ function SimulationWindow(props: SimulationWindowProps) {
       const deltaTime = currentTime - lastUpdateTime;
       lastUpdateTime = currentTime;
 
-      if (simulation.isPlaying) {
-        const updatedProjectile = updateProjectile([simulation.projectile], simulation.environment, deltaTime/1000);
-        setSimulation((prev) => ({...prev, projectile: updatedProjectile[0]}));
+      if (props.simulation.isPlaying) {
+        const updatedProjectile = updateProjectile([props.simulation.projectile], props.simulation.environment, deltaTime/1000);
+        props.setSimulation({...props.simulation, projectile: updatedProjectile[0]});
         animationFrameID = requestAnimationFrame(simulate);
       }
     }
 
-    if (simulation.isPlaying) {
+    if (props.simulation.isPlaying) {
       animationFrameID = requestAnimationFrame(simulate);
     }
 
     return () => {
       cancelAnimationFrame(animationFrameID);
     }
-  }, [simulation.isPlaying, simulation.projectile, simulation.environment]);
-
-  const startSimulation = () => setSimulation((prev) => ({ ...prev, isPlaying: true }));
-  const pauseSimulation = () => setSimulation((prev) => ({ ...prev, isPlaying: false }));
-  const resetSimulation = () => {
-    pauseSimulation();
-    setSimulation((prev) => ({
-      ...prev,
-      projectile: new Projectile(props.projectile.name, props.projectile.density, props.projectile.position, props.projectile.radius),
-    }));
-  };
+  }, [props.simulation.isPlaying, props.simulation.projectile, props.simulation.environment]);
 
   return (
     <div>
-      <button onClick={startSimulation}>Play</button>
-      <button onClick={pauseSimulation}>Pause</button>
-      <button onClick={resetSimulation}>Reset</button>
       <Stage width={500} height={500}>
         <Layer>
           <Circle
-            x={simulation.projectile.position.x}
-            y={simulation.projectile.position.y}
+            x={props.simulation.projectile.position.x}
+            y={props.simulation.projectile.position.y}
             radius={10}
             fill="red"
           />
