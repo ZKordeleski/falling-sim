@@ -18,8 +18,8 @@ export class Projectile {
         this.position = position;
         this.radius = radius;
         this.crossSectionalArea = Math.PI * radius * radius;
-        this.volume = 4/3 * Math.PI * radius * radius * radius; // NOTE: Currently only for balls. Would need adjusted for different shapes down the road.
-        this.mass = density * this.volume;
+        this.volume = 4/3 * Math.PI * radius * radius * radius; // NOTE: Only for spheres.
+        this.mass = density * this.volume; // NOTE: Only for spheres.
     }
 
     computeDrag(environment: Environment) {
