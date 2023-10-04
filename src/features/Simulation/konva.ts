@@ -36,12 +36,12 @@ projectileLayer.add(projectile);
 projectileLayer.add(building);
 stage.add(projectileLayer);
 
-let i = 0;
-let cumulativeTime = 0;
+// NOTE: For testing time to arrive at position "x" with theoretical values.
+// let cumulativeTime = 0;
 
 let animation = new Konva.Animation((frame) => {
     let timeStep = frame?.timeDiff || 0;
-    cumulativeTime += timeStep;
+    // cumulativeTime += timeStep;
     let updatedProjectile = updatePosition([ball], environment, timeStep/100)[0];
     console.log(updatedProjectile.velocity.y);
     projectile.position({x: updatedProjectile.position.x, y: updatedProjectile.position.y});

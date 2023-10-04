@@ -3,6 +3,7 @@ import { Environment } from "./environment";
 // All objects in the simulation have the following properties.
 export class Projectile {
     name: string;
+    density: number; // kg / m^3
     mass: number; // kg
     radius: number; // m
     crossSectionalArea: number; // m^2
@@ -11,13 +12,14 @@ export class Projectile {
     position: {x: number, y: number}; // m, m
     velocity = {x: 0, y: 0}
 
-    constructor(name: string, mass: number, position: {x: number, y: number}, radius: number) {
+    constructor(name: string, density: number, position: {x: number, y: number}, radius: number) {
         this.name = name;
-        this.mass = mass;
+        this.density = density;
         this.position = position;
         this.radius = radius;
         this.crossSectionalArea = Math.PI * radius * radius;
         this.volume = 4/3 * Math.PI * radius * radius * radius; // NOTE: Currently only for balls. Would need adjusted for different shapes down the road.
+        this.mass = density * this.volume;
     }
 
     computeDrag(environment: Environment) {
@@ -27,7 +29,7 @@ export class Projectile {
         
         let forceOfDrag = {
             x: .5 * dragCoefficient * environment.density * -this.velocity.x * Math.abs(this.velocity.x) * this.crossSectionalArea,
-            y: .5 * dragCoefficient * environment.density * -this.velocity.y * Math.abs(this.velocity.y) * this.crossSectionalArea
+            y: .5 * dragCoefficient * environment.density * this.velocity.y * Math.abs(this.velocity.y) * this.crossSectionalArea
         }
     
         return forceOfDrag;
@@ -60,7 +62,13 @@ export class Projectile {
 
 }
 
+interface PremadeProjectile {
+    name: string,
+    mass: number,
+    position: {x: number, y: number},
+    radius: number
+}
 // Premade environments to play with.
-export let premadeProjectiles: Projectile[] = [
+export let premadeProjectiles: PremadeProjectile[] = [
     
 ]
