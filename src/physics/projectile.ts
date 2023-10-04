@@ -62,13 +62,54 @@ export class Projectile {
 
 }
 
-interface PremadeProjectile {
+// Typing the premade projectile info used for the constructor.
+export interface PremadeProjectile {
     name: string,
-    mass: number,
+    density: number,
     position: {x: number, y: number},
     radius: number
 }
-// Premade environments to play with.
+// Premade projectiles to play with.
 export let premadeProjectiles: PremadeProjectile[] = [
-    
+    {
+        name: "Iron",
+        density: 7800,
+        position: {x: 100, y: 0},
+        radius: .1
+    },
+
+    {
+        name: "Helium",
+        density: .18,
+        position: {x: 100, y: 0},
+        radius: .5
+    },
+
+    {
+        name: "Lead",
+        density: 11343,
+        position: {x: 100, y: 0},
+        radius: .1
+    },
+
+    {
+        name: "Paper",
+        density: 1201,
+        position: {x: 100, y: 0},
+        radius: 3
+    },
+
+    {
+        name: "Iron",
+        density: 7800,
+        position: {x: 100, y: 0},
+        radius: .1
+    },
+
+    {
+        name: "Iron",
+        density: 7800,
+        position: {x: 100, y: 0},
+        radius: .1
+    },
 ]

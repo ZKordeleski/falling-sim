@@ -1,10 +1,10 @@
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
-import { Projectile } from "../../physics/projectile"
+import { PremadeProjectile, Projectile } from "../../physics/projectile"
 import { Button, IconButton } from "@mui/material"
 
 interface ProjectileSelectionWindowProps {
-    premadeProjectiles: Projectile[],
-    setSelectedProjectile: (projectile: Projectile) => void
+    premadeProjectiles: PremadeProjectile[],
+    setSelectedProjectile: (projectile: PremadeProjectile) => void
 }
 
 function ProjectileSelectionWindow(props: ProjectileSelectionWindowProps) {

@@ -1,5 +1,5 @@
 import Konva from "konva";
-import { updatePosition } from "../../physics/updatePosition";
+import { updateProjectile } from "../../physics/updatePosition";
 import { Projectile } from "../../physics/projectile";
 import { Environment } from "../../physics/environment";
 
@@ -42,7 +42,7 @@ stage.add(projectileLayer);
 let animation = new Konva.Animation((frame) => {
     let timeStep = frame?.timeDiff || 0;
     // cumulativeTime += timeStep;
-    let updatedProjectile = updatePosition([ball], environment, timeStep/100)[0];
+    let updatedProjectile = updateProjectile([ball], environment, timeStep/100)[0];
     console.log(updatedProjectile.velocity.y);
     projectile.position({x: updatedProjectile.position.x, y: updatedProjectile.position.y});
 });

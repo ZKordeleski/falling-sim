@@ -18,8 +18,18 @@
 .App .settings-window {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+
+  flex-grow: 1;
 
   justify-content: space-evenly;
+}
+
+.App .simulation-window {
+  display: flex;
+  flex-grow: 1;
+}
+
+.App .data-window {
+  display: flex;
+  flex-grow: 1;
 }

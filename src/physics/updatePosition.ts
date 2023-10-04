@@ -1,7 +1,7 @@
 import { Environment } from "./environment";
 import { Projectile } from "./projectile";
 
-export function updatePosition(projectiles: Projectile[], environment: Environment, timeStep: number): Projectile[] {
+export function updateProjectile(projectiles: Projectile[], environment: Environment, timeStep: number): Projectile[] {
     if (projectiles.length === 0) {
         return [];
     }

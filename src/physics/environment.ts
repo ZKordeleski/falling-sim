@@ -3,17 +3,62 @@ export class Environment {
     name: string;
     density: number; // kg/m^3
     gravity: number; // m/s^2
-    scale: number; // px / m
 
-    constructor(density: number, gravity: number = 9.81, scale: number, name: string = "custom") {
+    constructor(density: number, gravity: number = 9.81, name: string = "custom") {
         this.name = name;
         this.density = density;
         this.gravity = gravity;
-        this.scale = scale;
     }
 }
 
-// Premade environments to play with.
-export let premadeEnvironments: Environment[] = [
+// Typing premade environment info for constructor.
+export interface PremadeEnvironment {
+    name: string,
+    density: number,
+    gravity: number
+}
 
+// Premade environments to play with.
+export let premadeEnvironments: PremadeEnvironment[] = [
+    {
+        name: "Earth",
+        density: 1.225,
+        gravity: 9.81
+
+    },
+
+    {
+        name: "Mars",
+        density: .020,
+        gravity: 3.71
+
+    },
+
+    {
+        name: "Moon",
+        density: 0, // NOTE: it's actually about 100 molecules of gas per cubic cm but come on...
+        gravity: 9.81
+
+    },
+
+    {
+        name: "Jupiter",
+        density: 1330,
+        gravity: 24.79
+
+    },
+
+    {
+        name: "Earth",
+        density: 1.225,
+        gravity: 9.81
+
+    },
+
+    {
+        name: "Earth",
+        density: 1.225,
+        gravity: 9.81
+
+    }
 ]
