@@ -20,8 +20,6 @@ export function updateProjectile(projectiles: Projectile[], environment: Environ
             y: (drag.y + buoyancy.y + gravity.y) / projectile.mass
         };
 
-        console.log(netAcceleration);
-
         // Compute object's new position within 1 timestep and convert to pixels from meters.
         // NOTE: Tradeoff: You could use "requestAnimationFrame" here to handle the timing or sample the time to get time elapsed, but we run the risk of reduced accuracy / limited data. 
         projectile.position.x += (.5 * netAcceleration.x * Math.pow(timeStep, 2) + projectile.velocity.x * timeStep);

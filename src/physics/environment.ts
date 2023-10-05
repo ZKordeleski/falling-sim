@@ -4,6 +4,7 @@ import MarsIcon from "../assets/icons/mars.svg"
 import MoonIcon from "../assets/icons/moon.svg"
 import NeptuneIcon from "../assets/icons/neptune.svg"
 import SaturnIcon from "../assets/icons/saturn.svg"
+import VenusIcon from "../assets/icons/venus.svg"
 
 
 // The environment the object is falling through can be adjusted to demonstrate its unique effect.
@@ -69,10 +70,10 @@ export let premadeEnvironments: PremadeEnvironment[] = [
     },
 
     {
-        name: "Saturn",
+        name: "Venus",
         density: 1.225,
         gravity: 10.44,
-        icon: SaturnIcon
+        icon: VenusIcon
 
 
     },

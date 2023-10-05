@@ -1,14 +1,12 @@
-import './App.css'
-import { PremadeProjectile, Projectile, premadeProjectiles } from './physics/projectile'
-import { Environment, PremadeEnvironment, premadeEnvironments } from './physics/environment'
-import ProjectileSelectionPane from './features/ProjectileSelectionPane/ProjectileSelectionPane'
 import { useEffect, useRef, useState } from 'react'
-import SimulationPane from './features/Simulation/SimulationPane'
-import SummaryPane from './features/Graphs/SummaryPane/SummaryPane'
+import './App.css'
 import ChartPane from './features/Graphs/ChartsPane/ChartsPane'
-import EnvironmentSelectionPane from './features/EnvironmentSelectionPane/EnvironmentSelectionPane'
+import SummaryPane from './features/Graphs/SummaryPane/SummaryPane'
 import PremadeSelectionsPane from './features/PremadeSelectionsPane/PremadeSelectionsPane'
-import { SvgIcon } from '@mui/material'
+import SimulationPane from './features/Simulation/SimulationPane'
+import { Environment, PremadeEnvironment, premadeEnvironments } from './physics/environment'
+import { PremadeProjectile, Projectile, premadeProjectiles } from './physics/projectile'
+import { Simulate } from 'react-dom/test-utils'
 
 export interface Simulation {
   isPlaying: boolean,
@@ -44,17 +42,21 @@ function App() {
     resetSimulation(); // NOTE: Hack to set the ball height to top of building.
   }, [simContainerRef.current])
 
-  // -- SELECTION CONTROLS --
+  // -- SELECTION CONTROLS -- NOTE: There is an error when live adjusting the object's material mid flight at high velocities with drag.
   // Update projectile when a new selection is made.
   function updateProjectileMetrics(metrics: PremadeProjectile) {
-    let updatedSimulation = {...simulation};
+    let updatedSimulation = {...simulation, isPlaying: false};
+    updatedSimulation.projectile.position = {x: 0, y: simContainerSize.height - 828}; // TODO: Cleanup after adjusting starting position to mid canvas.
+    updatedSimulation.projectile.velocity = {x: 0, y: 0};
     updatedSimulation.projectile.updateMetrics(metrics);
     setSimulation(updatedSimulation);
   }
 
   // Update environment when a new selection is made.
   function updateEnvironmentMetrics(metrics: PremadeEnvironment) {
-    let updatedSimulation = {...simulation};
+    let updatedSimulation = {...simulation, isPlaying: false};
+    updatedSimulation.projectile.position = {x: 0, y: simContainerSize.height - 828}; // TODO: Cleanup after adjusting starting position to mid canvas.
+    updatedSimulation.projectile.velocity = {x: 0, y: 0};
     updatedSimulation.environment.updateMetrics(metrics);
     setSimulation(updatedSimulation);
   }
@@ -65,15 +67,20 @@ function App() {
     let updatedSimulation = {...simulation, isPlaying: false};
     updatedSimulation.projectile.position = {x: 0, y: simContainerSize.height - 828}; // TODO: Cleanup after adjusting starting position to mid canvas.
     updatedSimulation.projectile.velocity = {x: 0, y: 0};
+
+    // Reset data logs for projectile and sim.
+    updatedSimulation.projectile.history.position = [];
+    updatedSimulation.projectile.history.velocity = [];
+    updatedSimulation.projectile.history.gravity = [];
+    updatedSimulation.projectile.history.drag = [];
+    updatedSimulation.projectile.history.buoyancy = [];
     updatedSimulation.cumulativeTime = 0;
+
     setSimulation(updatedSimulation);
   }
 
   const startSimulation = () => setSimulation((prev) => ({...prev, isPlaying: true}));
   const pauseSimulation = () => setSimulation((prev) => ({...prev, isPlaying: false}));
-
-  let dummyTime = [0, 1, 2, 3, 4, 5, 6, 10, 15, 27];
-  let dummyMetric = [5, 10, 15, 20, 25, 21, 17, 18, 19, 8];
   
   return (
     <div className="App">
@@ -83,18 +90,24 @@ function App() {
           <button onClick={pauseSimulation}>Pause</button>
           <button onClick={resetSimulation}>Reset</button>
         </div>
-        <ProjectileSelectionPane premadeProjectiles={premadeProjectiles} updateProjectileMetrics={updateProjectileMetrics} />
-        <PremadeSelectionsPane premadeSelections={premadeEnvironments} updateMetrics={updateEnvironmentMetrics} />
+        <div className="projectile-container">
+          <span>Select a Projectile</span>
+          <PremadeSelectionsPane premadeSelections={premadeProjectiles} updateMetrics={updateProjectileMetrics} />
+        </div>
+        <div className="environment-container">
+          <span>Select an Environment</span>
+          <PremadeSelectionsPane premadeSelections={premadeEnvironments} updateMetrics={updateEnvironmentMetrics} />
+        </div>
       </div>
       <div className="simulation-window window" ref={simContainerRef}>
         <SimulationPane simulation={simulation} setSimulation={setSimulation} simContainerSize={simContainerSize} />
       </div>
       <div className="data-window window">
         <SummaryPane projectileVelocity={simulation.projectile.velocity.y} cumulativeTime={simulation.cumulativeTime} />
-        <ChartPane timeData={simulation.times} metricData={simulation.projectile.history.velocity} title="Dummy Data" />
-        <ChartPane timeData={dummyTime} metricData={dummyMetric} title="Dummy Data" />
-        <ChartPane timeData={dummyTime} metricData={dummyMetric} title="Dummy Data" />
-        <ChartPane timeData={dummyTime} metricData={dummyMetric} title="Dummy Data" />
+        <ChartPane timeData={simulation.times} metricData={simulation.projectile.history.velocity} title="Velocity" />
+        <ChartPane timeData={simulation.times} metricData={simulation.projectile.history.gravity} title="Gravity" />
+        <ChartPane timeData={simulation.times} metricData={simulation.projectile.history.drag} title="Drag" />
+        <ChartPane timeData={simulation.times} metricData={simulation.projectile.history.buoyancy} title="Buoyancy" />
       </div>
     </div>
   )

@@ -4,11 +4,12 @@ import { PremadeEnvironment } from "../../physics/environment"
 import earthIcon from "../../assets/icons/earth.svg"
 import "./PremadeSelectionsPane.css"
 import { useState } from "react"
+import { PremadeProjectile } from "../../physics/projectile"
 
 // TODO: Don't need premadeProjectiles passed in. Is global now.
 interface PremadeSelectionsPaneProps {
-    premadeSelections: PremadeEnvironment[],
-    updateMetrics: (metrics: PremadeEnvironment) => void
+    premadeSelections: (PremadeProjectile | PremadeEnvironment)[],
+    updateMetrics: (metrics: PremadeProjectile | PremadeEnvironment) => void
 }
 
 // TODO: Fix setSimulation to adjust projectile parameters of mass, density, volume, radius BUT NOT position, velocity, accel.
@@ -37,7 +38,6 @@ function PremadeSelectionsPane(props: PremadeSelectionsPaneProps) {
 
     return (
         <div className="PremadeSelectionsPane pane">
-            <span>Select an Environment</span>
             {toggleButtonGroup}
         </div>
     )

@@ -1,4 +1,10 @@
 import { Environment } from "./environment";
+import Asteroid from "../assets/icons/asteroid.svg"
+import Astronaut from "../assets/icons/astronaut.svg"
+import Helium from "../assets/icons/helium.svg"
+import Iron from "../assets/icons/iron.svg"
+import Lead from "../assets/icons/lead.svg"
+
 
 // All objects in the simulation have the following properties.
 export class Projectile {
@@ -77,12 +83,13 @@ export class Projectile {
 
 }
 
+// Space Icons Credit to Good Stuff No Nonsense @ https://goodstuffnononsense.com/
 // Typing the premade projectile info used for the constructor.
 export interface PremadeProjectile {
     name: string,
     density: number,
     radius: number,
-    iconPath: string
+    icon: string
 }
 // Premade projectiles to play with.
 export let premadeProjectiles: PremadeProjectile[] = [
@@ -90,41 +97,41 @@ export let premadeProjectiles: PremadeProjectile[] = [
         name: "Iron",
         density: 7800,
         radius: 1,
-        iconPath: ""
+        icon: Iron
     },
 
     {
         name: "Helium",
         density: .18,
         radius: 1,
-        iconPath: ""
+        icon: Helium
     },
 
     {
         name: "Lead",
         density: 11343,
         radius: 1,
-        iconPath: ""
+        icon: Lead
     },
 
     {
-        name: "Paper",
-        density: 1201,
+        name: "Human",
+        density: 1000,
         radius: 1,
-        iconPath: ""
+        icon: Astronaut
+    },
+
+    {
+        name: "Asteroid", //https://en.wikipedia.org/wiki/Standard_asteroid_physical_characteristics
+        density: 2710,
+        radius: 1,
+        icon: Asteroid
     },
 
     {
         name: "Iron",
         density: 7800,
         radius: 1,
-        iconPath: ""
-    },
-
-    {
-        name: "Iron",
-        density: 7800,
-        radius: 1,
-        iconPath: ""
+        icon: Iron
     },
 ]

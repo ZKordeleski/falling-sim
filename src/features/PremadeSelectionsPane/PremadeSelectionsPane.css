@@ -12,9 +12,10 @@
 .PremadeSelectionsPane button {
     flex-direction: column;
     border: none;
+    border-radius: 0;
     color: white;
     outline-width: 1px;
-    outline-color: lightblue;
+    outline-color: lightblue !important;
     filter: saturate(0);
 }
 
@@ -23,9 +24,15 @@
     filter: saturate(1);
 }
 
+.PremadeSelectionsPane button:focus {
+    outline-width: 1px;
+    outline-color: lightblue;
+}
+
 .PremadeSelectionsPane button[aria-pressed="true"] {
     color: white;
     outline-style: solid;
+    outline-color: lightblue;
     filter: saturate(1);
 }
 
