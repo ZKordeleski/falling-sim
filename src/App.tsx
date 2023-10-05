@@ -9,13 +9,15 @@ import SummaryPane from './features/Graphs/SummaryPane/SummaryPane'
 export interface Simulation {
   isPlaying: boolean,
   projectile: Projectile,
-  environment: Environment
+  environment: Environment,
+  cumulativeTime: number
 }
 
 let defaultSimulation: Simulation = {
   isPlaying: false,
   projectile: new Projectile(premadeProjectiles[0].name, premadeProjectiles[0].density, premadeProjectiles[0].radius),
-  environment: new Environment(premadeEnvironments[0].density, premadeEnvironments[0].gravity, premadeEnvironments[0].name)
+  environment: new Environment(premadeEnvironments[0].density, premadeEnvironments[0].gravity, premadeEnvironments[0].name),
+  cumulativeTime: 0
 }
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
     let updatedSimulation = {...simulation, isPlaying: false};
     updatedSimulation.projectile.position = {x: 0, y: simContainerSize.height - 828}; // TODO: Cleanup after adjusting starting position to mid canvas.
     updatedSimulation.projectile.velocity = {x: 0, y: 0};
+    updatedSimulation.cumulativeTime = 0;
     setSimulation(updatedSimulation);
   }
 
@@ -67,7 +70,7 @@ function App() {
         <SimulationPane simulation={simulation} setSimulation={setSimulation} simContainerSize={simContainerSize} />
       </div>
       <div className="data-window window">
-        <SummaryPane projectileVelocity={simulation.projectile.velocity.y} cumulativeTime={15} />
+        <SummaryPane projectileVelocity={simulation.projectile.velocity.y} cumulativeTime={simulation.cumulativeTime} />
       </div>
     </div>
   )

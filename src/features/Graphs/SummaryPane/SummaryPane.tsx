@@ -9,8 +9,8 @@ function SummaryPane(props: SummaryPaneProps) {
 
     return (
         <div className="SummaryPane">
-            <span>Velocity: {props.projectileVelocity}</span>
-            <span> Time: {props.cumulativeTime}</span>
+            <span>Velocity: {props.projectileVelocity.toFixed(2)}</span>
+            <span> Time: {props.cumulativeTime.toFixed(2)}</span>
         </div>
     )
 }

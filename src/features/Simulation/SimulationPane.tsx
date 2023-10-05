@@ -4,13 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { updateProjectile } from "../../physics/updateProjectile";
 import { Environment, PremadeEnvironment } from "../../physics/environment";
 import "./SimulationPane.css";
+import { Simulation } from "../../App";
 
 
 // TODO: Add handler to setContainerSize on window resize.
 interface SimulationPaneProps {
-    simulation: {isPlaying: boolean, projectile: Projectile, environment: Environment},
+    simulation: Simulation,
     simContainerSize: {width: number, height: number},
-    setSimulation: (simulation: {isPlaying: boolean, projectile: Projectile, environment: Environment}) => void;}
+    setSimulation: (simulation: Simulation) => void;}
 
 function SimulationPane(props: SimulationPaneProps) {
 
@@ -25,7 +26,7 @@ function SimulationPane(props: SimulationPaneProps) {
 
       if (props.simulation.isPlaying) {
         const updatedProjectile = updateProjectile([props.simulation.projectile], props.simulation.environment, deltaTime/1000);
-        props.setSimulation({...props.simulation, projectile: updatedProjectile[0]});
+        props.setSimulation({...props.simulation, projectile: updatedProjectile[0], cumulativeTime: (props.simulation.cumulativeTime + deltaTime)});
         animationFrameID = requestAnimationFrame(simulate);
       }
     }
