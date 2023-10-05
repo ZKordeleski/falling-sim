@@ -1,15 +1,19 @@
 import { Circle, Layer, Rect, Stage } from "react-konva"
 import { PremadeProjectile, Projectile } from "../../physics/projectile";
-import Konva from "konva";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { updateProjectile } from "../../physics/updateProjectile";
 import { Environment, PremadeEnvironment } from "../../physics/environment";
+import "./SimulationPane.css";
 
-interface SimulationWindowProps {
+
+// TODO: Add handler to setContainerSize on window resize.
+interface SimulationPaneProps {
     simulation: {isPlaying: boolean, projectile: Projectile, environment: Environment},
+    simContainerSize: {width: number, height: number},
     setSimulation: (simulation: {isPlaying: boolean, projectile: Projectile, environment: Environment}) => void;}
 
-function SimulationWindow(props: SimulationWindowProps) {
+function SimulationPane(props: SimulationPaneProps) {
+
   useEffect(() => {
     let animationFrameID: number;
     let lastUpdateTime: number = performance.now();
@@ -36,20 +40,20 @@ function SimulationWindow(props: SimulationWindowProps) {
   }, [props.simulation.isPlaying, props.simulation.projectile, props.simulation.environment]);
 
   return (
-    <div>
-      <Stage width={500} height={500}>
+    <div className="SimulationPane">
+      <Stage width={props.simContainerSize.width} height={props.simContainerSize.height}>
         <Layer>
           <Rect
-            x={100}
-            y={0}
-            width={30}
-            height={381} 
+            x={props.simContainerSize.width / 2}
+            y={props.simContainerSize.height - 828}
+            width={57}
+            height={828} 
             fill="blue"
           />
           <Circle
-            x={props.simulation.projectile.position.x}
+            x={props.simContainerSize.width / 2}
             y={props.simulation.projectile.position.y}
-            radius={10}
+            radius={props.simulation.projectile.radius}
             fill="red"
           />
         </Layer>
@@ -58,4 +62,4 @@ function SimulationWindow(props: SimulationWindowProps) {
   )
 }
 
-export default SimulationWindow
+export default SimulationPane

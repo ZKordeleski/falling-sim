@@ -3,14 +3,15 @@ import { PremadeProjectile, Projectile } from "../../physics/projectile"
 import { Button, IconButton } from "@mui/material"
 import { Simulation } from "../../App"
 
-interface ProjectileSelectionWindowProps {
+// TODO: Don't need premadeProjectiles passed in. Is global now.
+interface ProjectileSelectionPaneProps {
     premadeProjectiles: PremadeProjectile[],
     updateProjectileMetrics: (metrics: PremadeProjectile) => void
 }
 
 // TODO: Fix setSimulation to adjust projectile parameters of mass, density, volume, radius BUT NOT position, velocity, accel.
 
-function ProjectileSelectionWindow(props: ProjectileSelectionWindowProps) {
+function ProjectileSelectionPane(props: ProjectileSelectionPaneProps) {
     let buttonGrid = (
         <Grid2 container spacing={{ xs: 2, md: 3}} columns={{ xs: 4, sm: 8, md: 12}}>
             {props.premadeProjectiles.map((projectile, index) => (
@@ -24,11 +25,11 @@ function ProjectileSelectionWindow(props: ProjectileSelectionWindowProps) {
     )
 
     return (
-        <div>
+        <div className="ProjectileSelectionPane pane">
             <span>Select a Projectile</span>
             {buttonGrid}
         </div>
     )
 }
 
-export default ProjectileSelectionWindow
+export default ProjectileSelectionPane

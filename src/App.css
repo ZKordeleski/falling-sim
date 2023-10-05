@@ -1,9 +1,9 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  box-sizing: border-box;
   text-align: center;
-  height: 800px;
+  height: 100%;
   width: 100%;
 }
 
@@ -11,25 +11,29 @@
   display: flex;
   height: 100%;
   width: 100%;
-  
-  justify-content: space-evenly;
 }
 
 .App .settings-window {
   display: flex;
   flex-direction: column;
 
-  flex-grow: 1;
-
-  justify-content: space-evenly;
+  flex: 0 2 auto;
 }
 
 .App .simulation-window {
   display: flex;
-  flex-grow: 1;
+  flex: 2 1 600px;
 }
 
 .App .data-window {
   display: flex;
-  flex-grow: 1;
+  flex: 1 2 350px;
+}
+
+.App .window {
+  gap: 30px;
+}
+
+.App .pane {
+  gap: 75px;
 }

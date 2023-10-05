@@ -1,11 +1,10 @@
 import './App.css'
 import { PremadeProjectile, Projectile, premadeProjectiles } from './physics/projectile'
 import { Environment, premadeEnvironments } from './physics/environment'
-// import './features/Simulation/konva'
-import ProjectileSelectionWindow from './features/ProjectileSelectionWindow/ProjectileSelectionWindow'
-import { useState } from 'react'
-import EnvironmentSelectionWindow from './features/EnvironmentSelection/EnvironmentSelectionWindow'
-import SimulationWindow from './features/Simulation/SimulationWindow'
+import ProjectileSelectionPane from './features/ProjectileSelectionPane/ProjectileSelectionPane'
+import { useEffect, useRef, useState } from 'react'
+import SimulationPane from './features/Simulation/SimulationPane'
+import SummaryPane from './features/Graphs/SummaryPane/SummaryPane'
 
 export interface Simulation {
   isPlaying: boolean,
@@ -15,15 +14,26 @@ export interface Simulation {
 
 let defaultSimulation: Simulation = {
   isPlaying: false,
-  projectile: new Projectile(premadeProjectiles[1].name, premadeProjectiles[1].density, premadeProjectiles[1].radius),
+  projectile: new Projectile(premadeProjectiles[0].name, premadeProjectiles[0].density, premadeProjectiles[0].radius),
   environment: new Environment(premadeEnvironments[0].density, premadeEnvironments[0].gravity, premadeEnvironments[0].name)
-
 }
 
 function App() {
-  // TODO: Current issue is we want to link the preset selections to building a new projectile. As it stands, only the INITIAL state of the simulation is connected
-  // to the selection process. To fix this, we probably need a combined state for all of this or something similar. What a mess.
   const [simulation, setSimulation] = useState(defaultSimulation);
+  const [simContainerSize, setsimContainerSize] = useState<{width: number, height: number}>({width: 0, height: 0});
+  const simContainerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect (() => {
+    if (!simContainerRef.current) {
+      return;
+    }
+
+    const containerWidth = simContainerRef.current.offsetWidth;
+    const containerHeight = simContainerRef.current.offsetHeight;
+
+    setsimContainerSize({width: containerWidth, height: containerHeight})
+    resetSimulation(); // NOTE: Hack to set the ball height to top of building.
+  }, [simContainerRef.current])
 
   function updateProjectileMetrics(metrics: PremadeProjectile) {
     let updatedSimulation = {...simulation};
@@ -32,26 +42,32 @@ function App() {
     console.log(simulation);
   }
 
+  function resetSimulation() {
+    let updatedSimulation = {...simulation, isPlaying: false};
+    updatedSimulation.projectile.position = {x: 0, y: simContainerSize.height - 828}; // TODO: Cleanup after adjusting starting position to mid canvas.
+    updatedSimulation.projectile.velocity = {x: 0, y: 0};
+    setSimulation(updatedSimulation);
+  }
+
   const startSimulation = () => setSimulation((prev) => ({...prev, isPlaying: true}));
   const pauseSimulation = () => setSimulation((prev) => ({...prev, isPlaying: false}));
-  // const resetSimulation = () => setSimulation((prev) => ({...prev, isPlaying: false, projectile: new Projectile(selectedProjectile.name, selectedProjectile.density, selectedProjectile.position, selectedProjectile.radius)}));
   
   return (
     <div className="App">
-      <div className="settings-window">
+      <div className="settings-window window">
         <div className="simulation-buttons">
           <button onClick={startSimulation}>Play</button>
           <button onClick={pauseSimulation}>Pause</button>
-          {/* <button onClick={resetSimulation}>Reset</button> */}
+          <button onClick={resetSimulation}>Reset</button>
         </div>
-        <ProjectileSelectionWindow premadeProjectiles={premadeProjectiles} updateProjectileMetrics={updateProjectileMetrics} />
-        {/* <EnvironmentSelectionWindow premadeEnvironments={premadeEnvironments} setSimulation={setSimulation} /> */}
+        <ProjectileSelectionPane premadeProjectiles={premadeProjectiles} updateProjectileMetrics={updateProjectileMetrics} />
+        <ProjectileSelectionPane premadeProjectiles={premadeProjectiles} updateProjectileMetrics={updateProjectileMetrics} />
       </div>
-      <div className="simulation-window">
-        <SimulationWindow simulation={simulation} setSimulation={setSimulation} />
+      <div className="simulation-window window" ref={simContainerRef}>
+        <SimulationPane simulation={simulation} setSimulation={setSimulation} simContainerSize={simContainerSize} />
       </div>
-      <div className="data-window">
-        <span>Data Window</span>
+      <div className="data-window window">
+        <SummaryPane projectileVelocity={simulation.projectile.velocity.y} cumulativeTime={15} />
       </div>
     </div>
   )

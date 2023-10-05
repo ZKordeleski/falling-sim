@@ -3,12 +3,12 @@ import { Projectile } from "../../physics/projectile"
 import { Button, IconButton } from "@mui/material"
 import { Environment } from "../../physics/environment"
 
-interface EnvironmentSelectionWindowProps {
+interface EnvironmentSelectionPaneProps {
     premadeEnvironments: Environment[],
     setSelectedEnvironment: (environment: Environment) => void
 }
 
-function EnvironmentSelectionWindow(props: EnvironmentSelectionWindowProps) {
+function EnvironmentSelectionPane(props: EnvironmentSelectionPaneProps) {
     let buttonGrid = (
         <Grid2 container spacing={{ xs: 2, md: 3}} columns={{ xs: 4, sm: 8, md: 12}}>
             {props.premadeEnvironments.map((environment, index) => (
@@ -22,11 +22,11 @@ function EnvironmentSelectionWindow(props: EnvironmentSelectionWindowProps) {
     )
 
     return (
-        <div>
+        <div className="EnvironmentSelectionPane pane">
             <span>Select an Environment</span>
             {buttonGrid}
         </div>
     )
 }
 
-export default EnvironmentSelectionWindow
+export default EnvironmentSelectionPane

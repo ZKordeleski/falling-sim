@@ -80,36 +80,36 @@ export let premadeProjectiles: PremadeProjectile[] = [
     {
         name: "Iron",
         density: 7800,
-        radius: .1
+        radius: 1
     },
 
     {
         name: "Helium",
         density: .18,
-        radius: 2
+        radius: 1
     },
 
     {
         name: "Lead",
         density: 11343,
-        radius: .1
+        radius: 1
     },
 
     {
         name: "Paper",
         density: 1201,
-        radius: 3
+        radius: 1
     },
 
     {
         name: "Iron",
         density: 7800,
-        radius: .1
+        radius: 1
     },
 
     {
         name: "Iron",
         density: 7800,
-        radius: .1
+        radius: 1
     },
 ]
