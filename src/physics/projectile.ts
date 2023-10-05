@@ -4,22 +4,27 @@ import { Environment } from "./environment";
 export class Projectile {
     name: string;
     density: number; // kg / m^3
-    mass: number; // kg
     radius: number; // m
-    crossSectionalArea: number; // m^2
-    volume: number; // m^3
 
-    position: {x: number, y: number}; // m, m
+    position: {x: number, y: number} = {x: 100, y: 0}; // m, m
     velocity = {x: 0, y: 0}
 
-    constructor(name: string, density: number, position: {x: number, y: number}, radius: number) {
+    constructor(name: string, density: number, radius: number) {
         this.name = name;
         this.density = density;
-        this.position = position;
         this.radius = radius;
-        this.crossSectionalArea = Math.PI * radius * radius;
-        this.volume = 4/3 * Math.PI * radius * radius * radius; // NOTE: Only for spheres.
-        this.mass = density * this.volume; // NOTE: Only for spheres.
+    }
+
+    get volume() { // m^3
+        return 4/3 * Math.PI * this.radius * this.radius * this.radius;
+    }
+
+    get crossSectionalArea() { // m^2
+        return Math.PI * this.radius * this.radius;
+    }
+
+    get mass() { // kg
+        return this.density * this.volume;
     }
 
     computeDrag(environment: Environment) {
@@ -29,7 +34,7 @@ export class Projectile {
         
         let forceOfDrag = {
             x: .5 * dragCoefficient * environment.density * -this.velocity.x * Math.abs(this.velocity.x) * this.crossSectionalArea,
-            y: .5 * dragCoefficient * environment.density * this.velocity.y * Math.abs(this.velocity.y) * this.crossSectionalArea
+            y: .5 * dragCoefficient * environment.density * -this.velocity.y * Math.abs(this.velocity.y) * this.crossSectionalArea
         }
     
         return forceOfDrag;
@@ -56,8 +61,10 @@ export class Projectile {
         return forceOfBuoyancy;
     }
 
-    draw() {
-        // Drawing logic using Konva or Canvas
+    updateMetrics(metrics: PremadeProjectile) {
+        this.name = metrics.name;
+        this.density = metrics.density;
+        this.radius = metrics.radius;
     }
 
 }
@@ -66,7 +73,6 @@ export class Projectile {
 export interface PremadeProjectile {
     name: string,
     density: number,
-    position: {x: number, y: number},
     radius: number
 }
 // Premade projectiles to play with.
@@ -74,42 +80,36 @@ export let premadeProjectiles: PremadeProjectile[] = [
     {
         name: "Iron",
         density: 7800,
-        position: {x: 100, y: 0},
         radius: .1
     },
 
     {
         name: "Helium",
         density: .18,
-        position: {x: 100, y: 0},
-        radius: .5
+        radius: 2
     },
 
     {
         name: "Lead",
         density: 11343,
-        position: {x: 100, y: 0},
         radius: .1
     },
 
     {
         name: "Paper",
         density: 1201,
-        position: {x: 100, y: 0},
         radius: 3
     },
 
     {
         name: "Iron",
         density: 7800,
-        position: {x: 100, y: 0},
         radius: .1
     },
 
     {
         name: "Iron",
         density: 7800,
-        position: {x: 100, y: 0},
         radius: .1
     },
 ]

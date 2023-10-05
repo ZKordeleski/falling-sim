@@ -29,6 +29,9 @@ export function updateProjectile(projectiles: Projectile[], environment: Environ
         projectile.velocity.y += netAcceleration.y * timeStep;
 
         updatedProjectiles.push(projectile);
+        console.log("Projectile: ", projectile);
+        console.log("Forces: ", drag, buoyancy, gravity);
+        console.log("Velocity: ", projectile.velocity.y);
     }
 
     return updatedProjectiles;

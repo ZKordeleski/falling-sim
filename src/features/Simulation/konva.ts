@@ -1,5 +1,5 @@
 import Konva from "konva";
-import { updateProjectile } from "../../physics/updatePosition";
+import { updateProjectile } from "../../physics/updateProjectile";
 import { Projectile } from "../../physics/projectile";
 import { Environment } from "../../physics/environment";
 

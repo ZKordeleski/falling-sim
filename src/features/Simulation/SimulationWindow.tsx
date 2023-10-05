@@ -1,15 +1,13 @@
-import { Circle, Layer, Stage } from "react-konva"
+import { Circle, Layer, Rect, Stage } from "react-konva"
 import { PremadeProjectile, Projectile } from "../../physics/projectile";
 import Konva from "konva";
 import { useEffect, useState } from "react";
-import { updateProjectile } from "../../physics/updatePosition";
+import { updateProjectile } from "../../physics/updateProjectile";
 import { Environment, PremadeEnvironment } from "../../physics/environment";
 
 interface SimulationWindowProps {
     simulation: {isPlaying: boolean, projectile: Projectile, environment: Environment},
-    setSimulation: (simulation: {isPlaying: boolean, projectile: Projectile, environment: Environment}) => void;
-    initialConditions: PremadeProjectile
-}
+    setSimulation: (simulation: {isPlaying: boolean, projectile: Projectile, environment: Environment}) => void;}
 
 function SimulationWindow(props: SimulationWindowProps) {
   useEffect(() => {
@@ -41,6 +39,13 @@ function SimulationWindow(props: SimulationWindowProps) {
     <div>
       <Stage width={500} height={500}>
         <Layer>
+          <Rect
+            x={100}
+            y={0}
+            width={30}
+            height={381} 
+            fill="blue"
+          />
           <Circle
             x={props.simulation.projectile.position.x}
             y={props.simulation.projectile.position.y}
