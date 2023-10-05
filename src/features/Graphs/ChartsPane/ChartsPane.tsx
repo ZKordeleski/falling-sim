@@ -1,4 +1,3 @@
-import { LineChart } from "@mui/x-charts";
 import "./ChartsPane.css"
 import {
     Chart as ChartJS,
