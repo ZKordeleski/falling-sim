@@ -1,0 +1,4 @@
+.ChartPane {
+    display: flex;
+    flex-direction: column;
+}

@@ -27,6 +27,7 @@
 
 .App .data-window {
   display: flex;
+  flex-direction: column;
   flex: 1 2 350px;
 }
 

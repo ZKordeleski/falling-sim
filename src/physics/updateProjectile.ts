@@ -1,7 +1,7 @@
 import { Environment } from "./environment";
 import { Projectile } from "./projectile";
 
-export function updateProjectile(projectiles: Projectile[], environment: Environment, timeStep: number): Projectile[] {
+export function updateProjectile(projectiles: Projectile[], environment: Environment, timeStep: number, log: boolean = false): Projectile[] {
     if (projectiles.length === 0) {
         return [];
     }
@@ -10,13 +10,17 @@ export function updateProjectile(projectiles: Projectile[], environment: Environ
 
     for (let projectile of projectiles) {
         let drag = projectile.computeDrag(environment);
+
         let buoyancy = projectile.computeBuoyancy(environment);
+
         let gravity = projectile.computeGravity(environment);
         
         let netAcceleration = {
             x: (drag.x + buoyancy.x + gravity.x) / projectile.mass,
             y: (drag.y + buoyancy.y + gravity.y) / projectile.mass
         };
+
+        console.log(netAcceleration);
 
         // Compute object's new position within 1 timestep and convert to pixels from meters.
         // NOTE: Tradeoff: You could use "requestAnimationFrame" here to handle the timing or sample the time to get time elapsed, but we run the risk of reduced accuracy / limited data. 
@@ -28,10 +32,15 @@ export function updateProjectile(projectiles: Projectile[], environment: Environ
         projectile.velocity.x += netAcceleration.x * timeStep;
         projectile.velocity.y += netAcceleration.y * timeStep;
 
+        if (log) {
+            projectile.history.drag.push(drag.y);
+            projectile.history.buoyancy.push(buoyancy.y);
+            projectile.history.gravity.push(gravity.y);
+            projectile.history.position.push(projectile.position.y);
+            projectile.history.velocity.push(projectile.velocity.y);
+        }
+
         updatedProjectiles.push(projectile);
-        console.log("Projectile: ", projectile);
-        console.log("Forces: ", drag, buoyancy, gravity);
-        console.log("Velocity: ", projectile.velocity.y);
     }
 
     return updatedProjectiles;

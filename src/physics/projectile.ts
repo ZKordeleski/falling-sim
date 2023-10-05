@@ -9,6 +9,14 @@ export class Projectile {
     position: {x: number, y: number} = {x: 100, y: 0}; // m, m
     velocity = {x: 0, y: 0}
 
+    history: {
+        position: number[],
+        velocity: number[],
+        gravity: number[],
+        buoyancy: number[],
+        drag: number[]
+    } = {position: [], velocity: [], gravity: [], buoyancy: [], drag: []}
+
     constructor(name: string, density: number, radius: number) {
         this.name = name;
         this.density = density;
@@ -73,43 +81,50 @@ export class Projectile {
 export interface PremadeProjectile {
     name: string,
     density: number,
-    radius: number
+    radius: number,
+    iconPath: string
 }
 // Premade projectiles to play with.
 export let premadeProjectiles: PremadeProjectile[] = [
     {
         name: "Iron",
         density: 7800,
-        radius: 1
+        radius: 1,
+        iconPath: ""
     },
 
     {
         name: "Helium",
         density: .18,
-        radius: 1
+        radius: 1,
+        iconPath: ""
     },
 
     {
         name: "Lead",
         density: 11343,
-        radius: 1
+        radius: 1,
+        iconPath: ""
     },
 
     {
         name: "Paper",
         density: 1201,
-        radius: 1
+        radius: 1,
+        iconPath: ""
     },
 
     {
         name: "Iron",
         density: 7800,
-        radius: 1
+        radius: 1,
+        iconPath: ""
     },
 
     {
         name: "Iron",
         density: 7800,
-        radius: 1
+        radius: 1,
+        iconPath: ""
     },
 ]

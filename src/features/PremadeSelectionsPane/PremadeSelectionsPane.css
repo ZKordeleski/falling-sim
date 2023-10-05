@@ -1,0 +1,34 @@
+.PremadeSelectionsPane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.PremadeSelectionsPane .toggle-button-group {
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.PremadeSelectionsPane button {
+    flex-direction: column;
+    border: none;
+    color: white;
+    outline-width: 1px;
+    outline-color: lightblue;
+    filter: saturate(0);
+}
+
+.PremadeSelectionsPane button:hover {
+    outline-style: solid;
+    filter: saturate(1);
+}
+
+.PremadeSelectionsPane button[aria-pressed="true"] {
+    color: white;
+    outline-style: solid;
+    filter: saturate(1);
+}
+
+.PremadeSelectionsPane img {
+    width: 100px;
+}

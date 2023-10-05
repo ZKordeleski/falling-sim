@@ -11,7 +11,7 @@ import { Simulation } from "../../App";
 interface SimulationPaneProps {
     simulation: Simulation,
     simContainerSize: {width: number, height: number},
-    setSimulation: (simulation: Simulation) => void;}
+    setSimulation: React.Dispatch<React.SetStateAction<Simulation>>}
 
 function SimulationPane(props: SimulationPaneProps) {
 
@@ -25,8 +25,18 @@ function SimulationPane(props: SimulationPaneProps) {
       lastUpdateTime = currentTime;
 
       if (props.simulation.isPlaying) {
-        const updatedProjectile = updateProjectile([props.simulation.projectile], props.simulation.environment, deltaTime/1000);
-        props.setSimulation({...props.simulation, projectile: updatedProjectile[0], cumulativeTime: (props.simulation.cumulativeTime + deltaTime)});
+        // const updatedProjectile = updateProjectile([props.simulation.projectile], props.simulation.environment, deltaTime/1000);
+        // props.setSimulation({...props.simulation, projectile: updatedProjectile[0], cumulativeTime: (props.simulation.cumulativeTime + deltaTime)});
+        props.setSimulation((prev) => {
+          const cumulativeTime = prev.cumulativeTime + deltaTime;
+          const shouldLog = (Math.floor(prev.cumulativeTime/1000) !== Math.floor(cumulativeTime/1000));
+          return ({
+            ...prev,
+            projectile: updateProjectile([prev.projectile], prev.environment, deltaTime/1000, shouldLog)[0],
+            cumulativeTime: cumulativeTime,
+            times: (shouldLog) ? [...prev.times, cumulativeTime] : prev.times
+          });
+        });
         animationFrameID = requestAnimationFrame(simulate);
       }
     }
