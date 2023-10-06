@@ -50,10 +50,7 @@ function SimulationPane(props: SimulationPaneProps) {
     }
   }, [props.simulation.isPlaying, props.simulation.projectile, props.simulation.environment]);
 
-  const [image] = useImage(props.simulation.projectile.icon);
-
-  console.log(image);
-  
+  const [image] = useImage(props.simulation.projectile.icon);  
 
   return (
     <div className="SimulationPane">

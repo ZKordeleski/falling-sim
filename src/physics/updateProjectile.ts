@@ -49,14 +49,3 @@ export function updateProjectile(simulation: Simulation, timeStep: number, log: 
 
     return updatedProjectiles;
 }
-
-// let i = 0;
-// while (i < 6000) {
-//     let updatedProjectile = updatePosition([ball], environment, 1/60);
-//     if (i%60 === 0) {
-//         console.log(JSON.parse((JSON.stringify(updatedProjectile[0].position.y))));
-//     }
-//     i++;
-// }
-
-//TODO: 1) Get canvas implemented. 2) Make sure falling object draws correctly. 3) End sim if object hits ground or at least stop it from moving. 4) Probably make environment just a state variable. 5) fallingObjects array also state variable?

@@ -46,7 +46,7 @@ function App() {
     }
 
     // NOTE: Hack to set the ball height to top of building.
-    setTimeout(() => {measureContainer(); resetSimulation();}, 30);
+    setTimeout(() => {measureContainer(); resetSimulation();}, 100);
 
     window.onresize = measureContainer;
 
