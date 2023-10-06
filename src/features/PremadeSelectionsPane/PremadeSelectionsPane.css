@@ -11,6 +11,8 @@
 
 .PremadeSelectionsPane button {
     flex-direction: column;
+    background-color: #202020;
+    
     border: none;
     border-radius: 0;
     color: white;

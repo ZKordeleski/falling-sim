@@ -5,7 +5,6 @@ import { Simulation } from "../../App";
 import { updateProjectile } from "../../physics/updateProjectile";
 import "./SimulationPane.css";
 import BurjKhalifa from "../../assets/burj-khalifa-to-scale.svg"
-import Ball from "../../assets/icons/iron.svg"
 
 
 // TODO: Add handler to setContainerSize on window resize.
@@ -30,12 +29,12 @@ function SimulationPane(props: SimulationPaneProps) {
         // props.setSimulation({...props.simulation, projectile: updatedProjectile[0], cumulativeTime: (props.simulation.cumulativeTime + deltaTime)});
         props.setSimulation((prev) => {
           const cumulativeTime = prev.cumulativeTime + deltaTime;
-          const shouldLog = (Math.floor(prev.cumulativeTime/1000) !== Math.floor(cumulativeTime/1000));
+          const shouldLog = (Math.floor(prev.cumulativeTime/100) !== Math.floor(cumulativeTime/100));
           return ({
             ...prev,
             projectile: updateProjectile(prev, deltaTime/1000, shouldLog)[0],
             cumulativeTime: cumulativeTime,
-            times: (shouldLog) ? [...prev.times, cumulativeTime] : prev.times
+            times: (shouldLog) ? [...prev.times, prev.cumulativeTime] : prev.times
           });
         });
         animationFrameID = requestAnimationFrame(simulate);
@@ -51,7 +50,9 @@ function SimulationPane(props: SimulationPaneProps) {
     }
   }, [props.simulation.isPlaying, props.simulation.projectile, props.simulation.environment]);
 
-  const [image] = useImage(Ball);
+  const [image] = useImage(props.simulation.projectile.icon);
+
+  console.log(image);
   
 
   return (

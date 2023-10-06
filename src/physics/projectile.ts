@@ -11,6 +11,7 @@ export class Projectile {
     name: string;
     density: number; // kg / m^3
     radius: number; // m
+    icon: string;
 
     position: {x: number, y: number} = {x: 100, y: 0}; // m, m
     velocity = {x: 0, y: 0}
@@ -23,10 +24,11 @@ export class Projectile {
         drag: number[]
     } = {position: [], velocity: [], gravity: [], buoyancy: [], drag: []}
 
-    constructor(name: string, density: number, radius: number) {
+    constructor(name: string, density: number, radius: number, icon: string) {
         this.name = name;
         this.density = density;
         this.radius = radius;
+        this.icon = icon;
     }
 
     get volume() { // m^3
@@ -79,6 +81,7 @@ export class Projectile {
         this.name = metrics.name;
         this.density = metrics.density;
         this.radius = metrics.radius;
+        this.icon = metrics.icon;
     }
 
 }

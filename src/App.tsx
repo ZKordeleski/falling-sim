@@ -6,7 +6,6 @@ import PremadeSelectionsPane from './features/PremadeSelectionsPane/PremadeSelec
 import SimulationPane from './features/Simulation/SimulationPane'
 import { Environment, PremadeEnvironment, premadeEnvironments } from './physics/environment'
 import { PremadeProjectile, Projectile, premadeProjectiles } from './physics/projectile'
-import { Simulate } from 'react-dom/test-utils'
 
 export interface Simulation {
   isPlaying: boolean,
@@ -19,11 +18,11 @@ export interface Simulation {
 
 let defaultSimulation: Simulation = {
   isPlaying: false,
-  projectile: new Projectile(premadeProjectiles[0].name, premadeProjectiles[0].density, premadeProjectiles[0].radius),
+  projectile: new Projectile(premadeProjectiles[0].name, premadeProjectiles[0].density, premadeProjectiles[0].radius, premadeProjectiles[0].icon),
   environment: new Environment(premadeEnvironments[0].density, premadeEnvironments[0].gravity, premadeEnvironments[0].name),
   cumulativeTime: 0,
   ground: 830,
-  times: []
+  times: [0]
 }
 
 function App() {
@@ -57,19 +56,17 @@ function App() {
   // Update projectile when a new selection is made.
   function updateProjectileMetrics(metrics: PremadeProjectile) {
     let updatedSimulation = {...simulation, isPlaying: false};
-    updatedSimulation.projectile.position = {x: 0, y: simContainerSize.height - 828}; // TODO: Cleanup after adjusting starting position to mid canvas.
-    updatedSimulation.projectile.velocity = {x: 0, y: 0};
     updatedSimulation.projectile.updateMetrics(metrics);
     setSimulation(updatedSimulation);
+    resetSimulation();  
   }
 
   // Update environment when a new selection is made.
   function updateEnvironmentMetrics(metrics: PremadeEnvironment) {
     let updatedSimulation = {...simulation, isPlaying: false};
-    updatedSimulation.projectile.position = {x: 0, y: simContainerSize.height - 828}; // TODO: Cleanup after adjusting starting position to mid canvas.
-    updatedSimulation.projectile.velocity = {x: 0, y: 0};
     updatedSimulation.environment.updateMetrics(metrics);
     setSimulation(updatedSimulation);
+    resetSimulation();
   }
 
   // -- SIM CONTROLS --
@@ -81,7 +78,7 @@ function App() {
 
     // Reset data logs for projectile and sim.
     updatedSimulation.times = [];
-    updatedSimulation.projectile.history.position = [];
+    updatedSimulation.projectile.history.position = [simContainerSize.height - 828];
     updatedSimulation.projectile.history.velocity = [];
     updatedSimulation.projectile.history.gravity = [];
     updatedSimulation.projectile.history.drag = [];

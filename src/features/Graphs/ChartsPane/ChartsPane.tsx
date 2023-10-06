@@ -10,7 +10,7 @@ import {
     Legend
   } from 'chart.js';
 import { memo } from "react";
-import { Line } from 'react-chartjs-2';
+import { Chart, Line } from 'react-chartjs-2';
 
 ChartJS.register(
     CategoryScale,
@@ -27,6 +27,9 @@ interface ChartPaneProps {
     metricData: number[],
     title: string
 }
+
+ChartJS.defaults.color = "#eeeeee";
+ChartJS.defaults.borderColor = "#101010";
 
 function ChartPaneRaw(props: ChartPaneProps) {
     
@@ -59,8 +62,13 @@ function ChartPaneRaw(props: ChartPaneProps) {
                     },
                     scales: {
                         x: {
+                            min: 0,
+                            max: Math.max(props.timeData[props.timeData.length - 1], 10),
+                            ticks: {
+                                callback: (time) => (+time/1000).toFixed(1)
+                            },
                             type: 'linear'
-                        }
+                        },
                     },
                     animation: false
                 }
