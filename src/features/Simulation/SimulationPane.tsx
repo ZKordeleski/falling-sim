@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { Image, Layer, Stage } from "react-konva";
 import useImage from "use-image";
 import { Simulation } from "../../App";
-import BurjKhalifa from "../../assets/burj-khalifa-to-scale.svg";
-import EmpireStateBuilding from "../../assets/empire-state-building.svg"
+import EmpireStateBuilding from "../../assets/empire-state-building.svg";
 import { updateProjectile } from "../../physics/updateProjectile";
 import "./SimulationPane.css";
 
