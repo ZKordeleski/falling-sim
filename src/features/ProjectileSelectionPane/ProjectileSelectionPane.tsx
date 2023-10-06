@@ -1,7 +1,6 @@
+import { Button } from "@mui/material"
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
-import { PremadeProjectile, Projectile } from "../../physics/projectile"
-import { Button, IconButton } from "@mui/material"
-import { Simulation } from "../../App"
+import { PremadeProjectile } from "../../physics/projectile"
 
 // TODO: Don't need premadeProjectiles passed in. Is global now.
 interface ProjectileSelectionPaneProps {

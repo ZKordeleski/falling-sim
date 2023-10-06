@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { Circle, Image, Layer, Stage } from "react-konva";
+import { Image, Layer, Stage } from "react-konva";
 import useImage from "use-image";
 import { Simulation } from "../../App";
+import BurjKhalifa from "../../assets/burj-khalifa-to-scale.svg";
 import { updateProjectile } from "../../physics/updateProjectile";
 import "./SimulationPane.css";
-import BurjKhalifa from "../../assets/burj-khalifa-to-scale.svg"
 
 
 // TODO: Add handler to setContainerSize on window resize.

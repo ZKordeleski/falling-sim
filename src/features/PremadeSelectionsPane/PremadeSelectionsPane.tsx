@@ -1,10 +1,6 @@
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
-import { Button, Grid, IconButton, SvgIcon, ToggleButton, ToggleButtonGroup } from "@mui/material"
-import { PremadeEnvironment } from "../../physics/environment"
-import earthIcon from "../../assets/icons/earth.svg"
-import "./PremadeSelectionsPane.css"
-import { useState } from "react"
-import { PremadeProjectile } from "../../physics/projectile"
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { useState } from "react";
+import "./PremadeSelectionsPane.css";
 
 // TODO: Don't need premadeProjectiles passed in. Is global now.
 interface PremadeSelectionsPaneProps<T> {
@@ -22,7 +18,7 @@ function PremadeSelectionsPane<T extends {name: string, icon: string}>(props: Pr
             className="toggle-button-group"
             value={selectedPremade}
             exclusive
-            onChange={(event, newPremade) => {
+            onChange={(_event, newPremade) => {
                 setSelectedPremade(newPremade);
                 props.updateMetrics(newPremade);
             }}

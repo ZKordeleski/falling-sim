@@ -2,8 +2,6 @@ import EarthIcon from "../assets/icons/earth.svg"
 import JupiterIcon from "../assets/icons/jupiter.svg"
 import MarsIcon from "../assets/icons/mars.svg"
 import MoonIcon from "../assets/icons/moon.svg"
-import NeptuneIcon from "../assets/icons/neptune.svg"
-import SaturnIcon from "../assets/icons/saturn.svg"
 import VenusIcon from "../assets/icons/venus.svg"
 
 

@@ -1,16 +1,16 @@
-import "./ChartsPane.css"
 import {
-    Chart as ChartJS,
     CategoryScale,
+    Chart as ChartJS,
+    Legend,
+    LineElement,
     LinearScale,
     PointElement,
-    LineElement,
     Title,
-    Tooltip,
-    Legend
-  } from 'chart.js';
+    Tooltip
+} from 'chart.js';
 import { memo } from "react";
-import { Chart, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
+import "./ChartsPane.css";
 
 ChartJS.register(
     CategoryScale,

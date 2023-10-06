@@ -1,5 +1,4 @@
 import { Simulation } from "../App";
-import { Environment } from "./environment";
 import { Projectile } from "./projectile";
 
 export function updateProjectile(simulation: Simulation, timeStep: number, log: boolean = false): Projectile[] {
