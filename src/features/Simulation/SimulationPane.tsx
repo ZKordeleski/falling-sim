@@ -3,9 +3,11 @@ import { Image, Layer, Stage } from "react-konva";
 import useImage from "use-image";
 import { Simulation } from "../../App";
 import BurjKhalifa from "../../assets/burj-khalifa-to-scale.svg";
+import EmpireStateBuilding from "../../assets/empire-state-building.svg"
 import { updateProjectile } from "../../physics/updateProjectile";
 import "./SimulationPane.css";
 
+export const scaleImageHeight = 381;
 
 // TODO: Add handler to setContainerSize on window resize.
 interface SimulationPaneProps {
@@ -48,13 +50,13 @@ function SimulationPane(props: SimulationPaneProps) {
     return () => {
       cancelAnimationFrame(animationFrameID);
     }
-  }, [props.simulation.isPlaying, props.simulation.projectile, props.simulation.environment]);
+  }, [props.simulation.isPlaying]);
 
   const [image] = useImage(props.simulation.projectile.icon);  
 
   return (
     <div className="SimulationPane">
-      <img src={BurjKhalifa} width={447} height={830} style={{position: "absolute", bottom: 0}}/>
+      <img src={EmpireStateBuilding} height={381} style={{position: "absolute", bottom: 0}}/>
       <Stage width={props.simContainerSize.width} height={props.simContainerSize.height}>
         <Layer>
         <Image 

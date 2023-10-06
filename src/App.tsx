@@ -3,7 +3,7 @@ import './App.css'
 import ChartPane from './features/Graphs/ChartsPane/ChartsPane'
 import SummaryPane from './features/Graphs/SummaryPane/SummaryPane'
 import PremadeSelectionsPane from './features/PremadeSelectionsPane/PremadeSelectionsPane'
-import SimulationPane from './features/Simulation/SimulationPane'
+import SimulationPane, { scaleImageHeight } from './features/Simulation/SimulationPane'
 import { Environment, PremadeEnvironment, premadeEnvironments } from './physics/environment'
 import { PremadeProjectile, Projectile, premadeProjectiles } from './physics/projectile'
 
@@ -72,12 +72,12 @@ function App() {
   // Resets the projectile's motion and pauses the sim.
   function resetSimulation() {
     let updatedSimulation = {...simulation, isPlaying: false};
-    updatedSimulation.projectile.position = {x: 0, y: simContainerSize.height - 828}; // TODO: Cleanup after adjusting starting position to mid canvas.
+    updatedSimulation.projectile.position = {x: 0, y: simContainerSize.height - scaleImageHeight}; // TODO: Cleanup after adjusting starting position to mid canvas.
     updatedSimulation.projectile.velocity = {x: 0, y: 0};
 
     // Reset data logs for projectile and sim.
     updatedSimulation.times = [];
-    updatedSimulation.projectile.history.position = [simContainerSize.height - 828];
+    updatedSimulation.projectile.history.position = [simContainerSize.height - scaleImageHeight];
     updatedSimulation.projectile.history.velocity = [];
     updatedSimulation.projectile.history.gravity = [];
     updatedSimulation.projectile.history.drag = [];

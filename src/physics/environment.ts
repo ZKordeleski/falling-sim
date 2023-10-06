@@ -54,8 +54,6 @@ export let premadeEnvironments: PremadeEnvironment[] = [
         density: 0, // NOTE: it's actually about 100 molecules of gas per cubic cm but come on...
         gravity: 1.62,
         icon: MoonIcon
-
-
     },
 
     {
@@ -63,8 +61,6 @@ export let premadeEnvironments: PremadeEnvironment[] = [
         density: 1330,
         gravity: 24.79,
         icon: JupiterIcon
-
-
     },
 
     {
@@ -72,8 +68,6 @@ export let premadeEnvironments: PremadeEnvironment[] = [
         density: 1.225,
         gravity: 10.44,
         icon: VenusIcon
-
-
     },
 
     {
@@ -81,7 +75,5 @@ export let premadeEnvironments: PremadeEnvironment[] = [
         density: 0,
         gravity: 9.81,
         icon: EarthIcon
-
-
     }
 ]
