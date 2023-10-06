@@ -7,14 +7,14 @@ import { useState } from "react"
 import { PremadeProjectile } from "../../physics/projectile"
 
 // TODO: Don't need premadeProjectiles passed in. Is global now.
-interface PremadeSelectionsPaneProps {
-    premadeSelections: (PremadeProjectile | PremadeEnvironment)[],
-    updateMetrics: (metrics: PremadeProjectile | PremadeEnvironment) => void
+interface PremadeSelectionsPaneProps<T> {
+    premadeSelections: T[],
+    updateMetrics: (metrics: T) => void
 }
 
 // TODO: Fix setSimulation to adjust projectile parameters of mass, density, volume, radius BUT NOT position, velocity, accel.
 
-function PremadeSelectionsPane(props: PremadeSelectionsPaneProps) {
+function PremadeSelectionsPane<T extends {name: string, icon: string}>(props: PremadeSelectionsPaneProps<T>) {
     const [selectedPremade, setSelectedPremade] = useState(props.premadeSelections[0]);
     
     let toggleButtonGroup = (

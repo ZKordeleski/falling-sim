@@ -13,22 +13,28 @@
   width: 100%;
 }
 
-.App .settings-window {
+.App .settings-window.window{
   display: flex;
   flex-direction: column;
 
   flex: 0 2 auto;
+
+  gap: 100px;
 }
 
 .App .simulation-window {
   display: flex;
   flex: 2 1 600px;
+
+  overflow: hidden;
 }
 
 .App .data-window {
   display: flex;
   flex-direction: column;
   flex: 1 2 350px;
+
+  overflow: hidden;
 }
 
 .App .window {

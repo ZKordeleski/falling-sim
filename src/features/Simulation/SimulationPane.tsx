@@ -1,10 +1,11 @@
-import { Circle, Layer, Rect, Stage } from "react-konva"
-import { PremadeProjectile, Projectile } from "../../physics/projectile";
-import { useEffect, useRef, useState } from "react";
-import { updateProjectile } from "../../physics/updateProjectile";
-import { Environment, PremadeEnvironment } from "../../physics/environment";
-import "./SimulationPane.css";
+import { useEffect } from "react";
+import { Circle, Image, Layer, Stage } from "react-konva";
+import useImage from "use-image";
 import { Simulation } from "../../App";
+import { updateProjectile } from "../../physics/updateProjectile";
+import "./SimulationPane.css";
+import BurjKhalifa from "../../assets/burj-khalifa-to-scale.svg"
+import Ball from "../../assets/icons/iron.svg"
 
 
 // TODO: Add handler to setContainerSize on window resize.
@@ -32,7 +33,7 @@ function SimulationPane(props: SimulationPaneProps) {
           const shouldLog = (Math.floor(prev.cumulativeTime/1000) !== Math.floor(cumulativeTime/1000));
           return ({
             ...prev,
-            projectile: updateProjectile([prev.projectile], prev.environment, deltaTime/1000, shouldLog)[0],
+            projectile: updateProjectile(prev, deltaTime/1000, shouldLog)[0],
             cumulativeTime: cumulativeTime,
             times: (shouldLog) ? [...prev.times, cumulativeTime] : prev.times
           });
@@ -50,23 +51,21 @@ function SimulationPane(props: SimulationPaneProps) {
     }
   }, [props.simulation.isPlaying, props.simulation.projectile, props.simulation.environment]);
 
+  const [image] = useImage(Ball);
+  
+
   return (
     <div className="SimulationPane">
+      <img src={BurjKhalifa} width={447} height={830} style={{position: "absolute", bottom: 0}}/>
       <Stage width={props.simContainerSize.width} height={props.simContainerSize.height}>
         <Layer>
-          <Rect
-            x={props.simContainerSize.width / 2}
-            y={props.simContainerSize.height - 828}
-            width={57}
-            height={828} 
-            fill="blue"
-          />
-          <Circle
-            x={props.simContainerSize.width / 2}
-            y={props.simulation.projectile.position.y}
-            radius={props.simulation.projectile.radius}
-            fill="red"
-          />
+        <Image 
+          image={image} 
+          x={props.simContainerSize.width / 2} 
+          y={props.simulation.projectile.position.y}
+          height={30}
+          width={30}
+        />
         </Layer>
       </Stage>
     </div>

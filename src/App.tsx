@@ -13,6 +13,7 @@ export interface Simulation {
   projectile: Projectile,
   environment: Environment,
   cumulativeTime: number,
+  ground: number,
   times: number[]
 }
 
@@ -21,12 +22,13 @@ let defaultSimulation: Simulation = {
   projectile: new Projectile(premadeProjectiles[0].name, premadeProjectiles[0].density, premadeProjectiles[0].radius),
   environment: new Environment(premadeEnvironments[0].density, premadeEnvironments[0].gravity, premadeEnvironments[0].name),
   cumulativeTime: 0,
+  ground: 830,
   times: []
 }
 
 function App() {
   const [simulation, setSimulation] = useState(defaultSimulation);
-  const [simContainerSize, setsimContainerSize] = useState<{width: number, height: number}>({width: 0, height: 0});
+  const [simContainerSize, setSimContainerSize] = useState<{width: number, height: number}>({width: 0, height: 0});
   const simContainerRef = useRef<HTMLDivElement>(null);
   
   // Gets the current container size for passing into the Konva Stage.
@@ -35,11 +37,20 @@ function App() {
       return;
     }
 
-    const containerWidth = simContainerRef.current.offsetWidth;
-    const containerHeight = simContainerRef.current.offsetHeight;
+    // Resize canvases when window adjusted.
+    const measureContainer = () => {
+      const containerWidth = simContainerRef.current!.offsetWidth;
+      const containerHeight = simContainerRef.current!.offsetHeight;
+  
+      setSimContainerSize({width: containerWidth, height: containerHeight})
+      setSimulation((prev) => ({...prev, ground: containerHeight}));
+    }
 
-    setsimContainerSize({width: containerWidth, height: containerHeight})
-    resetSimulation(); // NOTE: Hack to set the ball height to top of building.
+    // NOTE: Hack to set the ball height to top of building.
+    setTimeout(() => {measureContainer(); resetSimulation();}, 30);
+
+    window.onresize = measureContainer;
+
   }, [simContainerRef.current])
 
   // -- SELECTION CONTROLS -- NOTE: There is an error when live adjusting the object's material mid flight at high velocities with drag.
@@ -69,6 +80,7 @@ function App() {
     updatedSimulation.projectile.velocity = {x: 0, y: 0};
 
     // Reset data logs for projectile and sim.
+    updatedSimulation.times = [];
     updatedSimulation.projectile.history.position = [];
     updatedSimulation.projectile.history.velocity = [];
     updatedSimulation.projectile.history.gravity = [];
