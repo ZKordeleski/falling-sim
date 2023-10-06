@@ -1,7 +1,6 @@
 .PremadeSelectionsPane {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .PremadeSelectionsPane .toggle-button-group {
@@ -12,7 +11,7 @@
 .PremadeSelectionsPane button {
     flex-direction: column;
     background-color: #202020;
-    
+
     border: none;
     border-radius: 0;
     color: white;
@@ -39,5 +38,5 @@
 }
 
 .PremadeSelectionsPane img {
-    width: 100px;
+    width: 80px;
 }

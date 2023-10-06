@@ -3,8 +3,10 @@
     flex-direction: column;
 
     aspect-ratio: 1;
+
+    overflow: hidden;
 }
 
 .ChartPane .line-chart {
-    max-height: 250px;
+    max-height: 150px;
 }

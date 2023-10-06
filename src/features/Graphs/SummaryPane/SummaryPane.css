@@ -1,0 +1,23 @@
+.SummaryPane {
+    display: flex;
+
+    gap: 30px;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 75px;
+    padding: 10px;
+
+    background-color: #202020;
+    border-radius: 5px;
+}
+
+.data {
+    font-size: 18px;
+}
+
+.data-type {
+    font-size: 12px;
+}
