@@ -42,7 +42,6 @@ function App() {
       const containerHeight = simContainerRef.current!.offsetHeight;
   
       setSimContainerSize({width: containerWidth, height: containerHeight})
-      setSimulation((prev) => ({...prev, ground: containerHeight}));
     }
 
     // NOTE: Hack to set the ball height to top of building.
@@ -88,7 +87,7 @@ function App() {
     setSimulation(updatedSimulation);
   }
 
-  const startSimulation = () => setSimulation((prev) => ({...prev, isPlaying: true}));
+  const startSimulation = () => setSimulation((prev) => ({...prev, isPlaying: true, ground: simContainerSize.height}));
   const pauseSimulation = () => setSimulation((prev) => ({...prev, isPlaying: false}));
   
   return (
