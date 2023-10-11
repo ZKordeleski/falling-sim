@@ -49,6 +49,7 @@
   gap: 8px;
 }
 
+/* NOTE: This should have some additional styling added to provide more visual harmony (e.g. sync coloring with icons). */
 .App .driving-question {
   text-align: left;
   font-size: 14pt;
