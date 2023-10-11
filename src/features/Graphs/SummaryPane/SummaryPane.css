@@ -10,6 +10,8 @@
     flex: 1 1 75px;
     padding: 10px;
 
+    justify-content: center;
+
     background-color: #202020;
     border-radius: 5px;
 }

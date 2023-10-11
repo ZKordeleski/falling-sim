@@ -65,8 +65,8 @@ export let premadeEnvironments: PremadeEnvironment[] = [
 
     {
         name: "Venus",
-        density: 1.225,
-        gravity: 10.44,
+        density: 65,
+        gravity: 8.87,
         icon: VenusIcon
     },
 

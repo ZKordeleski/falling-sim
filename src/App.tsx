@@ -101,10 +101,38 @@ function App() {
         <div className="projectile-container">
           <span>Select a Projectile</span>
           <PremadeSelectionsPane premadeSelections={premadeProjectiles} updateMetrics={updateProjectileMetrics} />
+          <div className="SummaryPane">
+            <div className="data-container">
+                <span className="data">{simulation.projectile.density} kg m<sup>-3</sup></span>
+                <span className="data-type">Density</span>
+            </div>
+            <div className="data-container">
+                <span className="data">.47</span>
+                <span className="data-type">Coefficient of Drag</span>
+            </div>
+            <div className="data-container">
+                <span className="data">{simulation.projectile.crossSectionalArea.toFixed(1)} m<sup>2</sup></span>
+                <span className="data-type">Cross Sectional Area</span>
+            </div>
+            <div className="data-container">
+                <span className="data">{simulation.projectile.volume.toFixed(1)} m<sup>3</sup></span>
+                <span className="data-type">Volume</span>
+            </div>
+          </div>
         </div>
         <div className="environment-container">
           <span>Select an Environment</span>
           <PremadeSelectionsPane premadeSelections={premadeEnvironments} updateMetrics={updateEnvironmentMetrics} />
+          <div className="SummaryPane">
+            <div className="data-container">
+                <span className="data">{simulation.environment.density} kg m<sup>-3</sup></span>
+                <span className="data-type">Atmosphere Density</span>
+            </div>
+            <div className="data-container">
+                <span className="data">{simulation.environment.gravity.toFixed(1)} m/s<sup>2</sup></span>
+                <span className="data-type">Gravitational Acceleration</span>
+            </div>
+          </div>
         </div>
       </div>
       <div className="simulation-window window" ref={simContainerRef}>
