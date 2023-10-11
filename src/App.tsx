@@ -90,6 +90,7 @@ function App() {
   const startSimulation = () => setSimulation((prev) => ({...prev, isPlaying: true, ground: simContainerSize.height}));
   const pauseSimulation = () => setSimulation((prev) => ({...prev, isPlaying: false}));
   
+  // TODO: Extract the data displays to their own component / hookup summary pane to cycle an array.
   return (
     <div className="App">
       <div className="settings-window window">
@@ -98,11 +99,14 @@ function App() {
           <button onClick={pauseSimulation}>Pause</button>
           <button onClick={resetSimulation}>Reset</button>
         </div>
+        <span className="driving-question">
+          What happens when you drop a {simulation.projectile.radius}m SPHERE made of {simulation.projectile.name.toUpperCase()} on {simulation.environment.name.toUpperCase()}?
+        </span>
         <div className="projectile-container">
           <span>Select a Projectile</span>
           <PremadeSelectionsPane premadeSelections={premadeProjectiles} updateMetrics={updateProjectileMetrics} />
           <div className="SummaryPane">
-            <div className="data-container">
+            <div className="data-container"> 
                 <span className="data">{simulation.projectile.density} kg m<sup>-3</sup></span>
                 <span className="data-type">Density</span>
             </div>

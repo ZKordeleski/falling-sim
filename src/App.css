@@ -48,3 +48,8 @@
   flex-direction: column;
   gap: 8px;
 }
+
+.App .driving-question {
+  text-align: left;
+  font-size: 14pt;
+}

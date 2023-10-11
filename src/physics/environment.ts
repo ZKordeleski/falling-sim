@@ -71,7 +71,7 @@ export let premadeEnvironments: PremadeEnvironment[] = [
     },
 
     {
-        name: "Vacuum",
+        name: "Earth (Vaccuum)",
         density: 0,
         gravity: 9.81,
         icon: EarthIcon
