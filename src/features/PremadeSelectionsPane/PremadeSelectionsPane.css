@@ -1,11 +1,14 @@
 .PremadeSelectionsPane {
     display: flex;
     flex-direction: column;
+
+    height: 100%;
 }
 
 .PremadeSelectionsPane .toggle-button-group {
     gap: 8px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .PremadeSelectionsPane button {
@@ -38,5 +41,5 @@
 }
 
 .PremadeSelectionsPane img {
-    width: 80px;
+    width: 75px;
 }

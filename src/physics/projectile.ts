@@ -129,12 +129,5 @@ export let premadeProjectiles: PremadeProjectile[] = [
         density: 2710,
         radius: 1,
         icon: Asteroid
-    },
-
-    {
-        name: "Iron",
-        density: 7800,
-        radius: 1,
-        icon: Iron
-    },
+    }
 ]

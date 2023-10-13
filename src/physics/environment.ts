@@ -63,15 +63,15 @@ export let premadeEnvironments: PremadeEnvironment[] = [
         icon: JupiterIcon
     },
 
-    {
-        name: "Venus",
-        density: 65,
-        gravity: 8.87,
-        icon: VenusIcon
-    },
+    // {
+    //     name: "Venus",
+    //     density: 65,
+    //     gravity: 8.87,
+    //     icon: VenusIcon
+    // },
 
     {
-        name: "Earth (Vaccuum)",
+        name: "Vacuum",
         density: 0,
         gravity: 9.81,
         icon: EarthIcon

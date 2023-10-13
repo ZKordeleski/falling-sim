@@ -1,19 +1,22 @@
 .SummaryPane {
     display: flex;
+    
+    flex-wrap: wrap;
 
-    gap: 30px;
+    gap: 8px;
 }
 
 .data-container {
     display: flex;
     flex-direction: column;
-    flex: 1 1 75px;
+    flex: 1 2 75px;
     padding: 10px;
 
     justify-content: center;
 
     background-color: #202020;
     border-radius: 5px;
+    
 }
 
 .data {
