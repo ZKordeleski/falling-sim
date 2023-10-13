@@ -19,8 +19,10 @@ function PremadeSelectionsPane<T extends {name: string, icon: string}>(props: Pr
             value={selectedPremade}
             exclusive
             onChange={(_event, newPremade) => {
-                setSelectedPremade(newPremade);
-                props.updateMetrics(newPremade);
+                if (newPremade !== null) { // One must always be selected!
+                    setSelectedPremade(newPremade);
+                    props.updateMetrics(newPremade);
+                }
             }}
         >
             {props.premadeSelections.map((item, index) => (

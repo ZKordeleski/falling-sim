@@ -52,7 +52,7 @@ export class Projectile {
             x: .5 * dragCoefficient * environment.density * -this.velocity.x * Math.abs(this.velocity.x) * this.crossSectionalArea,
             y: .5 * dragCoefficient * environment.density * -this.velocity.y * Math.abs(this.velocity.y) * this.crossSectionalArea
         }
-    
+
         return forceOfDrag;
     }
 
