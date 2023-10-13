@@ -2,7 +2,7 @@ import EarthIcon from "../assets/icons/earth.svg"
 import JupiterIcon from "../assets/icons/jupiter.svg"
 import MarsIcon from "../assets/icons/mars.svg"
 import MoonIcon from "../assets/icons/moon.svg"
-import VenusIcon from "../assets/icons/venus.svg"
+// import VenusIcon from "../assets/icons/venus.svg"
 
 
 // The environment the object is falling through can be adjusted to demonstrate its unique effect.
